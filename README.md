@@ -50,4 +50,6 @@ Optionally supply a callback(err, req) which will receive
 the request stream(!) for all pages.
 
 # License
+Copyright 2012 Knowit
+
 MIT
