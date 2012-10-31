@@ -1,0 +1,29 @@
+{
+  "name": "crawlstream",
+  "version": "0.1.0",
+  "description": "Crawl websites in a streaming fashion",
+  "main": "index.js",
+  "dependencies": {
+    "trumpet": "~0.3.0",
+    "request": "~2.11.4",
+    "async": "~0.1.22"
+  },
+  "scripts": {
+    "test": "node tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edmellum/crawlstream"
+  },
+  "bugs": {
+    "url": "http://github.com/edmellum/crawlstream/issues"
+  },
+  "keywords": [
+    "crawl",
+    "crawler",
+    "stream",
+    "streaming"
+  ],
+  "author": "David Ed Mellum <david@edmellum.com> (http://edmellum.com)",
+  "license": "MIT"
+}
