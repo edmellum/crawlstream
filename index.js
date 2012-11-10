@@ -19,6 +19,8 @@ module.exports = function(rootUrl, concurrency, limit, callback) {
 	// Every visited url goes in visited to avoid revisiting
 	var visited = [];
 
+	var reqBuffer = [];
+
 	// Takes a node from trumpet and returns a URL if it has not
 	// been visited and is valid.
 	var getUrl = function(link) {
@@ -40,6 +42,11 @@ module.exports = function(rootUrl, concurrency, limit, callback) {
 	var crawl = function(url, callback) {
 		var tr = trumpet();
 		var req = request(url, {pool: {maxSockets: concurrency}});
+
+		if(stream.paused) {
+			req.pause();
+			reqBuffer.push(req);
+		}
 
 		tr.select('a', function(node) {
 			var url = getUrl(node);
@@ -73,7 +80,30 @@ module.exports = function(rootUrl, concurrency, limit, callback) {
 			req.pipe(tr);
 		});
 
-		stream.emit('data', req);
+		if(!stream.paused) stream.emit('data', req);
+	};
+
+	// Pop a request off the buffer if we are paused and do
+	// nextTick.
+	var popReq = function() {
+		if(stream.paused) return;
+		if(reqBuffer.length > 0) {
+			var req = reqBuffer.pop();
+			req.resume();
+			stream.emit('data', req);
+			process.nextTick(popReq);
+		} else {
+			stream.paused = false;
+		}
+	};
+
+	stream.pause = function() {
+		stream.paused = true;
+	};
+
+	stream.resume = function() {
+		stream.paused = false;
+		popReq();
 	};
 
 	var queue = async.queue(crawl, concurrency);
