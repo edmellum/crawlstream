@@ -52,7 +52,7 @@ module.exports = function(rootUrl, concurrency, limit, callback) {
 			var url = getUrl(node);
 
 			if(!url) return;
-			if(limit && visited.length > limit) return;
+			if(limit && visited.length >= limit) return;
 
 			visited.push(url);
 
