@@ -76,7 +76,9 @@ module.exports = function(rootUrl, concurrency, callback) {
 
 	var queue = async.queue(crawl, concurrency);
 
-	queue.drain = function() {};
+	queue.drain = function() {
+		stream.emit('end');
+	};
 
 	crawl(rootUrl, callback);
 
