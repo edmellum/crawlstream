@@ -1,6 +1,6 @@
 {
   "name": "crawlstream",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Crawl websites in a streaming fashion",
   "main": "index.js",
   "dependencies": {
