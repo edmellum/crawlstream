@@ -57,8 +57,10 @@ module.exports = function(rootUrl, concurrency, limit, callback) {
 			visited.push(url);
 
 			queue.push(url, function(err, url) {
-				stream.emit('error', err);
-				callback(err);
+				if(err) {
+					stream.emit('error', err);
+					callback(err);
+				}
 			});
 		});
 
