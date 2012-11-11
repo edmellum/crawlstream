@@ -43,7 +43,7 @@ crawlstream('mysite.com', 10, function(err, req) {
 var crawlstream = require('crawlstream')
 ```
 
-## crawlstream(baseUrl, concurrency, [callback])
+## crawlstream(baseUrl, concurrency, limit, [callback])
 Crawl all pages under baseUrl.
 
 Optionally supply a callback(err, req) which will receive
