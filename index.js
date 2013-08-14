@@ -115,7 +115,9 @@ module.exports = function(rootUrl, concurrency, limit, callback) {
 		stream.emit('end');
 	};
 
-	crawl(rootUrl, callback);
+	process.nextTick(function() {
+		crawl(rootUrl, callback)
+	});
 
 	return stream;
 };
